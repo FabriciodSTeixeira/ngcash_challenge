@@ -1,8 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column,OneToOne, ManyToMany, JoinColumn, JoinTable } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column,OneToOne, JoinColumn } from "typeorm";
 import { Length, Matches } from "class-validator";
 import * as bcrypt from "bcryptjs";
 import {Account} from "./Accounts";
-import { Transaction } from "./Transactions"; 
 
 @Entity("user")
 export class User{
@@ -19,22 +18,11 @@ export class User{
     password: string
 
     @OneToOne(()=> Account)
-    @JoinColumn()
-    account: Number
-
-    @ManyToMany(() => Transaction, transaction => transaction.user)
-    @JoinTable({
-        name: "transaction_user",
-        joinColumn:{
-            name: "transaction_id",
-            referencedColumnName: "id",
-        },
-        inverseJoinColumn:{
-            name: "id",
-            referencedColumnName: "id",
-        },
-    })
-    transaction : Transaction[]
+    @JoinColumn({
+        name:"account_id",
+        referencedColumnName: "id"
+    },)
+    account: Account
 
     hashPassword(){
         return this.password = bcrypt.hashSync(this.password, 8)
@@ -43,4 +31,5 @@ export class User{
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
         return bcrypt.compareSync(unencryptedPassword, this.password);
     }
+
 }

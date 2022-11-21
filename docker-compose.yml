@@ -32,10 +32,9 @@ services:
       - DB_NAME = ngcash
       - DB_PASS = 123456
       - DB_USER = admin
+      - DB_HOST = "172.18.0.1"
     networks:
       - my-network
-    links:
-      - db
   pgadmin:
     image: dpage/pgadmin4:latest
     restart: always

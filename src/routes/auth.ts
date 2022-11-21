@@ -1,4 +1,3 @@
-import { checkJwt } from "../middlewares/checkJWT";
 import { AuthController } from "../controllers/AuthController";
 import { Router } from "express";
 

@@ -7,9 +7,9 @@ export class AuthController{
     static async login(req: Request, res: Response) {
     let {username, password} = req.body;
     
-    // if(typeof password && username != "string"){
-    //     return res.status(404).send("Invalid type of parameters on request")
-    // }
+    if(typeof password != "string" || typeof username != "string"){
+        return res.status(404).send("Invalid type of parameters on request")
+    }
     
     let user:User;
     

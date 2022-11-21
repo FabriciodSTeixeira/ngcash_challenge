@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany } from "typeorm";
-import { User } from "./Users";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity("transaction")
 export class Transaction{
@@ -7,11 +6,11 @@ export class Transaction{
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
-    debitedAcountId : number
+    @Column({nullable:true})
+    debitedAccountId ?: number 
 
-    @Column()
-    creditedAcountId : number
+    @Column({nullable:true})
+    creditedAccountId ?: number 
 
     @Column()
     value : number
@@ -20,6 +19,4 @@ export class Transaction{
     @CreateDateColumn()
     createdAt: Date
 
-    @ManyToMany(()=> User, user => user.transaction)
-    user: User[]
 };
